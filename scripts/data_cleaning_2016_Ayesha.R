@@ -1,8 +1,12 @@
 #read in libraries
 library(tidyverse)
+library(rstudioapi)
+
+#change working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #read in datasets
-path <- '/Users/adarekar/Documents/College/Senior/ST 495/Project/'
+path <- '../data/raw_data/'
 device_data <- read_delim(paste(path, 'DEVICE2016.txt', sep = ""), delim = '|', col_names = TRUE)
 patient_data <- read_csv(paste(path, 'patient2016.csv', sep = ""))
 mdr_data <- read_csv(paste(path, 'mdr2016.csv', sep = ""))
@@ -22,8 +26,6 @@ patient_data <- select(patient_data, MDR_REPORT_KEY, DATE_RECEIVED)
 mdr_data <- select(mdr_data, MDR_REPORT_KEY, REPORT_SOURCE_CODE, DATE_RECEIVED, DATE_OF_EVENT, REPORTER_OCCUPATION_CODE, 
                    EVENT_TYPE, MANUFACTURER_NAME, REPORTER_COUNTRY_CODE, PMA_PMN_NUM)
 patient_problem <- select(patient_problem, MDR_REPORT_KEY, PROBLEM_CODE)
-
-
 
 #merge datasets using mdr report key and date_received variable
 merge_data <- merge(mdr_data, patient_data, by = c("MDR_REPORT_KEY", "DATE_RECEIVED"))

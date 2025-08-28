@@ -1,8 +1,12 @@
 #libraries
 library(tidyverse)
+library(rstudioapi)
+
+#change working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #read in datasets
-path <- '/Users/adarekar/Documents/College/Senior/ST 495/Project/'
+path <- '../data/processed_data/'
 data2016 <- read_csv(paste(path, 'cleandata2016.csv', sep = ""))
 data2017 <- read_csv(paste(path, 'cleandata2017.csv', sep = ""))
 data2018 <- read_csv(paste(path, 'cleandata2018.csv', sep = ""))

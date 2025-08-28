@@ -3,17 +3,20 @@ library(tidyverse)
 library(ranger)
 library(MASS)
 library(pROC)
+library(rstudioapi)
+
+#change working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #read in data
-path <- '/Users/adarekar/Documents/College/Senior/ST 495/Project/'
+path <- '../data/processed_data/'
 data <- read_csv(paste(path, 'cleaned-maude-2016-2019.csv', sep = ""))
 
 #preprocessing
 data <- as.data.frame(data)
 data <- na.omit(data)
-data <- subset(data, select <- -c(...1, PATIENT_PROBLEM_DESCRIPTION, DEVICE_PROBLEM_DESCRIPTION, MDR_REPORT_KEY, DEVICE_PROBLEM_CODE, PATIENT_PROBLEM_CODE, REPORTER_OCCUPATION_CODE, DEVICE_REPORT_PRODUCT_CODE, REPORTER_COUNTRY_CODE))
+data <- subset(data, select = -c(...1, PATIENT_PROBLEM_DESCRIPTION, DEVICE_PROBLEM_DESCRIPTION, MDR_REPORT_KEY, DEVICE_PROBLEM_CODE, PATIENT_PROBLEM_CODE, REPORTER_OCCUPATION_CODE, DEVICE_REPORT_PRODUCT_CODE, REPORTER_COUNTRY_CODE))
 data$EVENT_TYPE <- as.factor(data$EVENT_TYPE)
-
 
 #cross validation 70%/30% split
 K<-5
@@ -21,12 +24,9 @@ n<-nrow(data)
 train.prop <-0.7
 train.size <-ceiling(n*train.prop) #integer above number 
 
-
 rf1.err.cv <-rep(NA, K)
 rf2.err.cv <-rep(NA, K)
 rf3.err.cv <-rep(NA, K)
-
-
 
 for (i in 1:K) {
   set.seed(234)
