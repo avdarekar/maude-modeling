@@ -26,4 +26,13 @@ These are all raw datasets that came from the [FDA MAUDE database](https://www.f
 - random_forest_LSA.R: random forest modeling using cleaned dataset and latent semantic analysis results 
 
 ## Obtaining Data 
-The data was obtained from the [FDA MAUDE database](https://www.fda.gov/medical-devices/mandatory-reporting-requirements-manufacturers-importers-and-device-user-facilities/about-manufacturer-and-user-facility-device-experience-maude).  
+The data was obtained from the [FDA MAUDE database](https://www.fda.gov/medical-devices/mandatory-reporting-requirements-manufacturers-importers-and-device-user-facilities/about-manufacturer-and-user-facility-device-experience-maude). 
+
+## Installation 
+To successfully run the scripts locally: 
+1. Clone this repo. 
+2. Install the following R libraries: tidyverse, ranger, MASS, pROC, rstudioapi. 
+
+## Usage 
+Run the scripts in RStudio. 
+
