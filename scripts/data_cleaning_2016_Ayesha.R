@@ -1,5 +1,6 @@
 #read in libraries
 library(tidyverse)
+library(dplyr)
 library(rstudioapi)
 
 #change working directory
@@ -20,12 +21,12 @@ patient_prob_code <- read_csv(paste(path, 'patientproblemcodes.csv', sep = ""), 
 patient_problem$MDR_REPORT_KEY <- as.numeric(patient_problem$MDR_REPORT_KEY)
 
 #only keep variables of interest
-device_data <- select(device_data, MDR_REPORT_KEY, MANUFACTURER_D_NAME,DEVICE_REPORT_PRODUCT_CODE, 
+device_data <- dplyr::select(device_data, MDR_REPORT_KEY, MANUFACTURER_D_NAME,DEVICE_REPORT_PRODUCT_CODE, 
                       COMBINATION_PRODUCT_FLAG, BRAND_NAME)
-patient_data <- select(patient_data, MDR_REPORT_KEY, DATE_RECEIVED)
-mdr_data <- select(mdr_data, MDR_REPORT_KEY, REPORT_SOURCE_CODE, DATE_RECEIVED, DATE_OF_EVENT, REPORTER_OCCUPATION_CODE, 
+patient_data <- dplyr::select(patient_data, MDR_REPORT_KEY, DATE_RECEIVED)
+mdr_data <- dplyr::select(mdr_data, MDR_REPORT_KEY, REPORT_SOURCE_CODE, DATE_RECEIVED, DATE_OF_EVENT, REPORTER_OCCUPATION_CODE, 
                    EVENT_TYPE, MANUFACTURER_NAME, REPORTER_COUNTRY_CODE, PMA_PMN_NUM)
-patient_problem <- select(patient_problem, MDR_REPORT_KEY, PROBLEM_CODE)
+patient_problem <- dplyr::select(patient_problem, MDR_REPORT_KEY, PROBLEM_CODE)
 
 #merge datasets using mdr report key and date_received variable
 merge_data <- merge(mdr_data, patient_data, by = c("MDR_REPORT_KEY", "DATE_RECEIVED"))
@@ -35,7 +36,7 @@ merge_data <- merge(merge_data, patient_problem, by = c("MDR_REPORT_KEY"))
 
 
 #drop MANUFACTURER_NAME
-merge_data <- select(merge_data, -MANUFACTURER_NAME)
+merge_data <- dplyr::select(merge_data, -MANUFACTURER_NAME)
 
 #match patient and device codes with their description 
 p_prob_descrip <- rep(NA, length(merge_data$PROBLEM_CODE))

@@ -31,7 +31,7 @@ The data was obtained from the [FDA MAUDE database](https://www.fda.gov/medical-
 ## Installation 
 To successfully run the scripts locally: 
 1. Clone this repo. 
-2. Install the following R libraries: tidyverse, ranger, MASS, pROC, rstudioapi. 
+2. Install the following R libraries: tidyverse, ranger, MASS, pROC, rstudioapi, dplyr. 
 
 ## Usage 
 Run the scripts in RStudio. 
